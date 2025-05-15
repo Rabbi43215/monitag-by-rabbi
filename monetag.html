@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Earn 1 Coin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="monetag" content="8616215" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #101010;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background: #1c1c1c;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0, 255, 100, 0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 15px 25px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #00c853;
+      color: white;
+      cursor: pointer;
+      user-select: none;
+    }
+    #status {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Click to Watch Ad & Earn 1 Coin</h2>
+    <button onclick="showAd()">Watch Ad</button>
+    <div id="status">No coin yet</div>
+  </div>
+
+  <!-- Monetag Ad Script -->
+  <script src="//solseewuthi.net/sdk.js" data-zone="8616215" data-sdk="show_8616215"></script>
+
+  <script>
+    function showAd() {
+      try {
+        window.show_8616215(); // Monetag full screen/popunder ad trigger
+        document.getElementById("status").innerText = "✅ 1 Coin Added!";
+      } catch (e) {
+        document.getElementById("status").innerText = "Ad Blocked or Failed!";
+      }
+    }
+  </script>
+</body>
+</html>
