@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CYBER Earn - Watch Ads & Earn</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+    button {
+      padding: 15px 25px;
+      background: #00ff99;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      color: #000;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ff99;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #00cc77;
+    }
+    .stats {
+      margin-top: 25px;
+      font-size: 18px;
+    }
+    .progress-bar-container {
+      background: #444;
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+      height: 25px;
+    }
+    .progress-bar {
+      background: #00ff99;
+      height: 100%;
+      width: 0%;
+      text-align: center;
+      font-weight: bold;
+      transition: width 1s ease;
+      color: #000;
+    }
+    #message {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #0f0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CYBER Earn</h1>
+  <p>Click on the ad, wait 15s, earn 100 coins!</p>
+
+  <button onclick="openAd()">Watch Ad</button>
+  <div id="message"></div>
+
+  <div class="progress-bar-container">
+    <div id="progressBar" class="progress-bar">0%</div>
+  </div>
+
+  <div class="stats">
+    Total Coins: <span id="coinCount">0</span>
+  </div>
+
+  <!-- Monetag SDK AD -->
+  <script src="//libtl.com/sdk.js" data-zone="8616215" data-sdk="show_8616215"></script>
+
+  <script>
+    const links = [
+      "https://otieu.com/4/8617521",
+      "https://otieu.com/4/8617513",
+      "https://otieu.com/4/8617518",
+      "https://otieu.com/4/8617517",
+      "https://otieu.com/4/8616227",
+      "https://otieu.com/4/8617515",
+      "https://otieu.com/4/8617519",
+      "https://otieu.com/4/9368777"
+    ];
+
+    let coins = parseInt(localStorage.getItem('coins')) || 0;
+    document.getElementById('coinCount').textContent = coins;
+
+    function updateProgress(percent) {
+      const bar = document.getElementById('progressBar');
+      bar.style.width = percent + '%';
+      bar.textContent = percent + '%';
+    }
+
+    function openAd() {
+      const randomLink = links[Math.floor(Math.random() * links.length)];
+      window.open(randomLink, '_blank');
+
+      document.getElementById('message').textContent = 'Wait 15s to get coins...';
+      updateProgress(0);
+
+      let time = 15;
+      let interval = setInterval(() => {
+        time--;
+        const percent = Math.round(((15 - time) / 15) * 100);
+        updateProgress(percent);
+
+        if (time <= 0) {
+          clearInterval(interval);
+          coins += 100;
+          localStorage.setItem('coins', coins);
+          document.getElementById('coinCount').textContent = coins;
+          document.getElementById('message').textContent = '✅ 100 coins added!';
+          updateProgress(100);
+        }
+      }, 1000);
+
+      // Auto show Monetag SDK Ad after delay
+      setTimeout(() => {
+        if (typeof show_8616215 === 'function') {
+          show_8616215();
+        }
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
